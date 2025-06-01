@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dự báo thời tiết - Weather Prediction</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 2rem;
+      background: #f0f4f8;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+    }
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 1.5rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    input[type="number"], select {
+      width: 100%;
+      padding: 0.4rem;
+      margin-top: 0.4rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.7rem;
+      font-size: 1.1rem;
+      background: #3498db;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    .result {
+      max-width: 500px;
+      margin: 1.5rem auto;
+      background: #dff0d8;
+      color: #3c763d;
+      border-radius: 6px;
+      padding: 1rem 1.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+    }
+    .section {
+      margin-top: 2rem;
+    }
+    h4 {
+      margin-top: 2rem;
+      color: #2c3e50;
+      text-align: center;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 1rem;
+    }
+    li {
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dự đoán điều kiện thời tiết và gợi ý các hoạt động nông nghiệp tỉnh Quảng Nam</h1>
+
+  <form action="/" method="POST">
+    <!-- Weather inputs -->
+    <label for="Temp_C">Nhiệt độ (°C):</label>
+    <input type="number" step="0.1" name="Temp_C" id="Temp_C" required />
+
+    <label for="Precipitation_mm">Lượng mưa (mm):</label>
+    <input type="number" step="0.1" name="Precipitation_mm" id="Precipitation_mm" required />
+
+    <label for="Humidity_pct">Độ ẩm (%):</label>
+    <input type="number" step="0.1" name="Humidity_pct" id="Humidity_pct" required />
+
+    <label for="AtmosPressure_hPa">Áp suất (hPa):</label>
+    <input type="number" step="0.1" name="AtmosPressure_hPa" id="AtmosPressure_hPa" required />
+
+    <label for="WindSpeed_kmh">Tốc độ gió (km/h):</label>
+    <input type="number" step="0.1" name="WindSpeed_kmh" id="WindSpeed_kmh" required />
+
+    <label for="CloudCover_pct">Mật độ mây (%):</label>
+    <input type="number" step="0.1" name="CloudCover_pct" id="CloudCover_pct" required />
+
+    <label for="model_select">Chọn mô hình dự đoán:</label>
+    <select name="model_select" id="model_select" required>
+      <option value="knn">K-Nearest Neighbors (KNN)</option>
+      <option value="rf">Random Forest</option>
+    </select>
+    <input type="hidden" id="day" name="day" />
+    <input type="hidden" id="month" name="month" />
+    <input type="hidden" id="year" name="year" />
+    <input type="hidden" id="hour" name="hour" />
+
+    <button type="submit">Dự đoán</button>
+  </form>
+
+{% if prediction_desc %}
+<div class="result section">
+  <h4>Kết quả dự báo thời tiết</h4>
+  <p><strong>Mã điều kiện:</strong> {{ prediction_code }}</p>
+  <p><strong>Mô tả:</strong> {{ prediction_desc }}</p>
+</div>
+
+<div class="section" style="max-width: 600px; margin: 1rem auto; background: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 8px; padding: 1.5rem;">
+  <h4>📌 Gợi ý nông nghiệp theo điều kiện dự báo</h4>
+  <ul>
+    {% for crop, advice in crop_advice.items() %}
+      <li style="margin-bottom: 0.8rem;">
+        <strong style="color: #2c3e50;">🌾 {{ crop }}:</strong>
+        <span style="margin-left: 0.5rem;">{{ advice }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+
+  <script>
+    // Gán ngày giờ hiện tại vào input hidden
+    const now = new Date();
+    document.getElementById('day').value = now.getDate();
+    document.getElementById('month').value = now.getMonth() + 1;
+    document.getElementById('year').value = now.getFullYear();
+    document.getElementById('hour').value = now.getHours();
+  </script>
+</body>
+</html>
