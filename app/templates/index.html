@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dự đoán thời tiết</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            font-size: 18px;
+            text-align: center;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dự đoán mô tả thời tiết</h1>
+    <form method="post">
+        <label for="date">Ngày:</label>
+        <input type="date" name="date" value="{{ request.form.date }}" required><br>
+
+        <label for="Temp_C">Nhiệt độ (Temp_C):</label>
+        <input type="number" step="any" name="Temp_C" value="{{ request.form.Temp_C }}" required><br>
+
+        <label for="Humidity_pct">Độ ẩm (%):</label>
+        <input type="number" step="any" name="Humidity_pct" value="{{ request.form.Humidity_pct }}" required><br>
+
+        <label for="Precipitation_mm">Lượng mưa (mm):</label>
+        <input type="number" step="any" name="Precipitation_mm" value="{{ request.form.Precipitation_mm }}" required><br>
+
+        <label for="WindSpeed_kmh">Tốc độ gió (km/h):</label>
+        <input type="number" step="any" name="WindSpeed_kmh" value="{{ request.form.WindSpeed_kmh }}" required><br>
+
+        <label for="CloudCover_pct">Độ che phủ mây (%):</label>
+        <input type="number" step="any" name="CloudCover_pct" value="{{ request.form.CloudCover_pct }}" required><br>
+
+        <label for="AtmosPressure_hPa">Áp suất không khí (hPa):</label>
+        <input type="number" step="any" name="AtmosPressure_hPa" value="{{ request.form.AtmosPressure_hPa }}" required><br>
+
+        <button type="submit">Dự đoán</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result">
+        Ngày {{ selected_date }} - Mô tả thời tiết dự đoán: <strong>{{ prediction }}</strong>
+    </div>
+    {% endif %}
+</body>
+</html>
