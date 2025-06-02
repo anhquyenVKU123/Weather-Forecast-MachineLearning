@@ -107,7 +107,7 @@ class WeatherPreprocessor:
         after = len(self.df)
         print(f"Đã loại bỏ {before - after} dòng trùng nhau.")
 
-    def export_cleaned(self, out_file="../data/weather_data_processed.csv"):
+    def export_cleaned(self, out_file):
         self.df.to_csv(out_file, index=False)
         print(f"\nDữ liệu sạch đã được lưu vào {out_file}")
 
@@ -129,6 +129,9 @@ class WeatherPreprocessor:
         print(f"Số dòng trùng nhau: {dup_count}")
         print(f"Số dòng duy nhất: {self.df.shape[0] - dup_count}\n")
 
+        print("Số lượng giá trị hợp lệ (non-null) trong mỗi cột:")
+        print(self.df.nunique(), "\n")
+
 pre = WeatherPreprocessor("../data/QuangNam_Weather_Data.csv")
 pre.load_data()
 pre.parse_datetime()
@@ -139,5 +142,16 @@ pre.handle_missing_values()
 pre.detect_outliers_iqr()
 pre.handle_outliers_minmax()
 pre.remove_duplicates()
-pre.export_cleaned()
+pre.export_cleaned("../data/weather_data_processed.csv")
 pre.data_overview()
+
+pre_test = WeatherPreprocessor("../data/QuangNam_Weather_Data_Test.csv")
+pre_test.load_data()
+pre_test.parse_datetime()
+pre_test.convert_types()
+pre_test.extract_time_features()
+pre_test.handle_missing_values()
+pre_test.detect_outliers_iqr()
+pre_test.handle_outliers_minmax()
+pre_test.remove_duplicates()
+pre_test.export_cleaned("../data/weather_data_test_processed.csv")

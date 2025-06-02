@@ -14,7 +14,7 @@ def main():
     knn_model.save()
 
     print("\n🌲 Training Random Forest Model...")
-    rf_model = RFWeatherModel(n_estimators=100, random_state=42)
+    rf_model = RFWeatherModel(n_estimators=100, random_state=30)
     rf_model.train(X_train, y_train)
     rf_model.evaluate(X_test, y_test)
     rf_model.save()

@@ -9,17 +9,21 @@ import matplotlib.pyplot as plt
 @st.cache_data
 def load_data(filepath):
     df = pd.read_csv(filepath)
-    df['Date'] = pd.to_datetime(df['Date'])
+
+    # Tạo cột Date từ Year, Month, Day
+    df['Date'] = pd.to_datetime(df[['Year', 'Month', 'Day']])
+
+    # Các cột xử lý tiếp theo
     df['Year'] = df['Date'].dt.year
     df['Month'] = df['Date'].dt.month
     df['Day'] = df['Date'].dt.day
 
-    # Thêm cột mùa: mùa khô, mùa mưa dựa trên tháng
     def season(month):
-        if month in [2,3,4,5,6,7,8]:
+        if month in [2, 3, 4, 5, 6, 7, 8]:
             return 'Mùa Khô'
         else:
             return 'Mùa Mưa'
+
     df['Season'] = df['Month'].apply(season)
     return df
 
@@ -170,6 +174,18 @@ class WeatherAnalyzer:
                                  title=f"Scatter Plot: {variables[i]} vs {variables[i+1]}")
                 st.plotly_chart(fig, use_container_width=True)
 
+        if 'Temp_C' in df.columns and 'Humidity_pct' in df.columns:
+            fig_temp_humidity = px.scatter(
+                df,
+                x='Temp_C',
+                y='Humidity_pct',
+                opacity=0.5,
+                color_discrete_sequence=['indianred'],
+                title='Scatter Plot: Nhiệt độ (Temp_C) vs Độ ẩm (Humidity)'
+            )
+            fig_temp_humidity.update_traces(marker=dict(size=5))
+            st.plotly_chart(fig_temp_humidity, use_container_width=True)
+
     def run(self):
         years, seasons, variables = self.show_filters()
         filtered_df = self.filter_data(years=years, seasons=seasons, variables=variables)
@@ -183,7 +199,7 @@ class WeatherAnalyzer:
 
 if __name__ == "__main__":
     st.set_page_config(layout="wide")
-    data = load_data("weather_data_processed.csv")
+    data = load_data("../data/weather_data_processed.csv")
     analyzer = WeatherAnalyzer(data)
     analyzer.run()
 
