@@ -5,11 +5,11 @@ import joblib  # để lưu mô hình
 import os
 
 def main():
-    file_path = r'd:\Học Máy\weather-forecast-python_demo_01\data\processed\neo_weather_data_processed.csv'
+    file_path = r'd:\Học Máy\Weather-Forecast-MachineLearning\data\processed\neo_weather_data_processed.csv'
 
     # Đường dẫn thư mục lưu mô hình và dữ liệu test
-    model_dir = r'D:\Học Máy\weather-forecast-python_demo_01\models'
-    test_data_dir = r'D:\Học Máy\weather-forecast-python_demo_01\data\test_data'
+    model_dir = r'D:\Học Máy\Weather-Forecast-MachineLearning\models'
+    test_data_dir = r'D:\Học Máy\Weather-Forecast-MachineLearning\data\test_data'
 
     # Tạo thư mục nếu chưa tồn tại
     os.makedirs(model_dir, exist_ok=True)

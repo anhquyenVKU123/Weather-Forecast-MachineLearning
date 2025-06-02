@@ -4,7 +4,7 @@ import pandas as pd
 
 main = Blueprint('main', __name__)
 
-model_path = r"D:\Học Máy\weather-forecast-python_demo_01\models\knn_model_07_with_n_equal_21.pkl"
+model_path = r"D:\Học Máy\Weather-Forecast-MachineLearning\models\knn_model_07_with_n_equal_21.pkl"
 model = joblib.load(model_path)
 
 @main.route('/', methods=['GET', 'POST'])

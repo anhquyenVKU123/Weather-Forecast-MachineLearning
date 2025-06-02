@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Đọc file CSV, dùng raw string cho đường dẫn Windows
-df = pd.read_csv(r'd:\Học Máy\weather-forecast-python_demo_01\data\processed\weather_data_processed.csv')
+df = pd.read_csv(r'd:\Học Máy\Weather-Forecast-MachineLearning\data\processed\weather_data_processed.csv')
 
 # Đảm bảo cột WeatherCondition là int (nếu bị string thì chuyển)
 df['WeatherCondition'] = df['WeatherCondition'].astype(int)
@@ -27,7 +27,7 @@ df['WeatherDescription'] = df['WeatherCondition'].map(wmo_descriptions)
 df['WeatherDescription'].fillna('Unknown', inplace=True)
 
 # Lưu file mới (dùng raw string)
-df.to_csv(r'd:\Học Máy\weather-forecast-python_demo_01\data\processed\neo_weather_data_processed.csv', index=False)
+df.to_csv(r'd:\Học Máy\Weather-Forecast-MachineLearning\data\processed\neo_weather_data_processed.csv', index=False)
 
 # In ra bảng mã và mô tả không trùng
 print(df[['WeatherCondition', 'WeatherDescription']].drop_duplicates().reset_index(drop=True))

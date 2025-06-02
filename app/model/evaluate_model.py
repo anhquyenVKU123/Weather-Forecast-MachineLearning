@@ -9,13 +9,13 @@ import matplotlib.pyplot as plt  # Thư viện vẽ biểu đồ cơ bản
 # Định nghĩa hàm chính
 def main():
     # Đường dẫn đến mô hình KNN đã huấn luyện
-    model_path = r"D:\Học Máy\weather-forecast-python_demo_01\models\knn_model_07_with_n_equal_21.pkl"
+    model_path = r"D:\Học Máy\Weather-Forecast-MachineLearning\models\knn_model_07_with_n_equal_21.pkl"
     
     # Đường dẫn chứa tập dữ liệu kiểm tra (test)
-    test_data_dir = r"D:\Học Máy\weather-forecast-python_demo_01\data\test_data"
+    test_data_dir = r"D:\Học Máy\Weather-Forecast-MachineLearning\data\test_data"
     
     # Đường dẫn để lưu báo cáo đánh giá (confusion matrix hình ảnh)
-    save_dir = r"D:\Học Máy\weather-forecast-python_demo_01\classification_reports"
+    save_dir = r"D:\Học Máy\Weather-Forecast-MachineLearning\classification_reports"
 
     # Tạo thư mục lưu nếu chưa tồn tại
     os.makedirs(save_dir, exist_ok=True)

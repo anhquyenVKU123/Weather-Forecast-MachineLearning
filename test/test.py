@@ -3,7 +3,7 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
 # Đường dẫn file dữ liệu (bạn thay bằng đường dẫn thật của bạn)
-file_path = r'd:\Học Máy\weather-forecast-python_demo_01\data\processed\neo_weather_data_processed.csv'
+file_path = r'd:\Học Máy\Weather-Forecast-MachineLearning\data\processed\neo_weather_data_processed.csv'
 
 # Đọc dữ liệu
 data = pd.read_csv(file_path)
